@@ -1,2 +1,10 @@
-#!/usr/bin/env bash
-/usr/sbin/lighttpd -D -f ./lighttpd.conf
+#!/usr/bin/env python2
+import SimpleHTTPServer
+import SocketServer
+
+Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+class STCPServer(SocketServer.TCPServer):
+    allow_reuse_address = True
+server = STCPServer(('0.0.0.0', 8080), Handler)
+
+server.serve_forever()
